@@ -12,6 +12,7 @@ program
 
 program
   .usage('<options>')
+  .option('-s, --spec <OpenAPI spec version>', 'Allowed values 2.0, 3.0.x')
   .option('-d, --destination <file>', 'API Bundle destination location....')
   .option('-l, --local <file>', 'Use local API bundle')
   .option('-n, --name <API name>', 'API proxy name. Required if local bundle is used')
@@ -22,8 +23,8 @@ program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
   console.log('    $ apigee2openapi --help');
-  console.log('    $ apigee2openapi -d /Users/Anil/Desktop/');
-  console.log('    $ apigee2openapi -d ~/Desktop/weather-api -l ~/Desktop/WeatherAPI.zip -n WeatherAPI -e https://msebai-test.apigee.net');
+  console.log('    $ apigee2openapi -d /Users/Anil/Desktop/ -v 3.0.0');
+  console.log('    $ apigee2openapi -d ~/Desktop/weather-api -v 2.0 -l ~/Desktop/WeatherAPI.zip -n WeatherAPI -e https://msebai-test.apigee.net');
   console.log('');
 });
 
@@ -34,6 +35,7 @@ options.destination = program.destination;
 options.file = program.local;
 options.api = program.name;
 options.proxyEndPoint = program.endpoint;
+options.version = program.spec;
 
 fetch.fetchProxy(options, function(err, reply) {
   if(err) {
